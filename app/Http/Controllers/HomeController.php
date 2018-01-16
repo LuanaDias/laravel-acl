@@ -25,8 +25,8 @@ class HomeController extends Controller
      */
     public function index(Notice $postnotice)
     {
-        //$posts = $postnotice->all();
-        $posts = $postnotice->where('user_id',auth()->user()->id)->get();
+        $posts = $postnotice->all();
+       // $posts = $postnotice->where('user_id',auth()->user()->id)->get();
         return view('home',compact('posts'));
     }
 
