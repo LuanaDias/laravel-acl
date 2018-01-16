@@ -1,0 +1,4 @@
+-php artisan make:auth (cria sistema de autenticação)
+-php artisan make:model Notice -m (Criar model de Noticia e cria a migration da tabela de usuario)
+-php artisan migrate (cria as tabelas de migrate)
+-php artisan make:policy NoticePolicy (cria politica)

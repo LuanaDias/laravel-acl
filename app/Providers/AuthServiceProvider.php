@@ -16,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        \App\Notice::class => \App\Policies\NoticePolicy::class,
     ];
 
     /**
@@ -28,16 +28,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        $gate->define('update-notice', function(User $user, Notice $postnotice){
-            return $user->id == $postnotice->user_id;
-        });
-
-        /*$this->registerPolicies($gate);
-
-        $gate->define('update-notice',function(User $user,Notice $postnotice){
+       /* $gate->define('update-notice', function(User $user, Notice $postnotice){
             return $user->id == $postnotice->user_id;
         });*/
+        
 
-        //
+        
     }
 }
