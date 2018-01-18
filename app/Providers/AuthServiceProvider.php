@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Notice;
 use App\User;
+use App\Permission;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        \App\Notice::class => \App\Policies\NoticePolicy::class,
+        //\App\Notice::class => \App\Policies\NoticePolicy::class,
     ];
 
     /**
@@ -32,7 +33,15 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id == $postnotice->user_id;
         });*/
         
+        $permissions = Permission::with('roles')->get();
+        //view_post  = Manager, Editor
+        //delete_post => Manager
+        //edit_post = Manager
+        foreach ($permissions as $permission) {
 
-        
+            $gate->define($permission->name, function(User $user) use ($permission){
+                return $user->hasPermission($permission);
+             });   
+        }        
     }
 }
